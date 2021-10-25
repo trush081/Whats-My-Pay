@@ -1,0 +1,106 @@
+{
+  "project_info": {
+    "project_number": "520141929725",
+    "firebase_url": "https://what-s-my-pay-default-rtdb.firebaseio.com",
+    "project_id": "what-s-my-pay",
+    "storage_bucket": "what-s-my-pay.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520141929725:android:abb641b9177fdefab81294",
+        "android_client_info": {
+          "package_name": "com.awesomeproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520141929725-qnrvustt2lrg1bam55r6h1uufpvbjhag.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQEpij9f_JH87ChH2AMg55HzXulvPNGIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520141929725-qnrvustt2lrg1bam55r6h1uufpvbjhag.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520141929725:android:6e65e7610981fcb9b81294",
+        "android_client_info": {
+          "package_name": "com.whatsmypay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520141929725-qnrvustt2lrg1bam55r6h1uufpvbjhag.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQEpij9f_JH87ChH2AMg55HzXulvPNGIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520141929725-qnrvustt2lrg1bam55r6h1uufpvbjhag.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520141929725:android:5081f9e0a082d565b81294",
+        "android_client_info": {
+          "package_name": "com.wmp_pj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520141929725-03ovc028c21qsiolk4vb5be0160hc321.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wmp_pj",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "520141929725-qnrvustt2lrg1bam55r6h1uufpvbjhag.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQEpij9f_JH87ChH2AMg55HzXulvPNGIs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520141929725-qnrvustt2lrg1bam55r6h1uufpvbjhag.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
