@@ -39,6 +39,7 @@ function LoginScreen({ navigation }){
   
   const signin = (email, password) => {
     try {
+      
       if(auth().signInWithEmailAndPassword(email, password)){
         {
           
