@@ -42,7 +42,8 @@ function LoginScreen({ navigation }){
             {
               // Navigate to the Details route with params, User's Name
               navigation.navigate('Home', {
-                userID: doc.data().Name,
+                name: doc.data().Name,
+                empID: ID,
               });
             }
           }
