@@ -14,8 +14,8 @@ import auth from '@react-native-firebase/auth';
 function HomeScreen({ route, navigation }) {
     //params passed from Login
     const {name, empID} = route.params;
-    const [empInfo, setempInfo] = useState([]);
-    const [lastPeriod, setlastPeriod] = useState([]);
+    const [empInfo, setempInfo] = useState();
+    const [lastPeriod, setlastPeriod] = useState();
     const [totalwage, settotalwage] = useState(0.0);
     const [totalhrs, settotalhrs] = useState(0.0);
     const [hourlywage, sethourlywage] = useState(0.0);
@@ -38,6 +38,7 @@ function HomeScreen({ route, navigation }) {
           });
         } catch (error) {
           alert(error);
+          console.log(error)
         }
 
         //now get info for shifts from past pay period
@@ -85,29 +86,38 @@ function HomeScreen({ route, navigation }) {
     const calculate = async () => {
         settotalhrs(0);
         var wage_running_total = 0.0;
-        var hours_running_total = 0.0;
-        lastPeriod.forEach((entry) => {
-          wage_running_total += entry.drive_hrs*empInfo.drive_rate;
-          wage_running_total += entry.store_hrs*empInfo.store_rate;
-          wage_running_total += entry.tips;
-          hours_running_total += entry.drive_hrs;
-          hours_running_total += entry.store_hrs;
-        })
-        settotalwage(wage_running_total);
-        settotalhrs(hours_running_total);
-        if(wage_running_total > 0 & hours_running_total >0){
-          var avg = wage_running_total/hours_running_total;
-          avg = avg.toFixed(2);
-          sethourlywage(avg);
+        var hours_running_total = 0.0;        
+        
+        try {
+          lastPeriod.forEach((entry) => {
+            wage_running_total += entry.drive_hrs*empInfo.drive_rate;
+            wage_running_total += entry.store_hrs*empInfo.store_rate;
+            wage_running_total += entry.tips;
+            hours_running_total += entry.drive_hrs;
+            hours_running_total += entry.store_hrs;
+          })
+          settotalwage(wage_running_total.toFixed(2));
+          settotalhrs(hours_running_total.toFixed(2));
+          if(wage_running_total > 0 & hours_running_total >0){
+            var avg = wage_running_total/hours_running_total;
+            avg = avg.toFixed(2);
+            sethourlywage(avg);
+          }
+        } catch(e){
+          console.log(e)
         }
+        
     }
 
     //load all information when screen loads
     useEffect(() => {
-      loadData()
-      calculate()
-      return () => {};
+      loadData();
     }, []);
+
+    //once lastPeriod is updated with data, calculate
+    useEffect(() => {
+      calculate()
+    }, [lastPeriod]);
 
 
     return (
@@ -166,7 +176,10 @@ function HomeScreen({ route, navigation }) {
           <TouchableOpacity 
             style={styles.navBarButtons}
             onPress={() => {
-              alert('Open Monthly Breakdown Page!');
+              //navigation.navigate('Calendar', {
+                
+                //empID: empID,
+              //});
           }}>
             <View>
               <Image style={styles.buttonHome} source={require("./assets/calendar.png")} />
