@@ -18,23 +18,14 @@ function LoginScreen({ navigation }){
   // User credential information
   const [ID, setID] = useState('');
   const [password, setPassword] = useState('');
-
-  // Boolean to state if user is signed in -- Work to be done: implementation
-  const [authenticated, setAuthenticated] = useState(false);
-
-  // Change authentication status of the user -- Work to be done: implementation
-  auth().onAuthStateChanged((user) => {
-    if(user) {
-      setAuthenticated(true);
-    }
-  })
   
+
   // sign in: takes employeeID and password, translated to stored email in firestore,
   // authenticats user using email and password authentication from firebase
   const signin = (ID, password) => {
     try {
       //finds the document in firestore with name of Employee ID
-      firestore().collection("EmployeeID").doc(ID).onSnapshot(doc => {
+      firestore().collection("Employees").doc(ID).onSnapshot(doc => {
         if (doc.exists){
           // gather email field from firebase
           //firebase user authentication with email and password
@@ -42,8 +33,11 @@ function LoginScreen({ navigation }){
             {
               // Navigate to the Details route with params, User's Name
               navigation.navigate('Home', {
-                userID: doc.data().Name,
+                name: doc.data().Name,
+                empID: ID,
               });
+              setID('');
+              setPassword('');
             }
           }
         } else {
@@ -97,12 +91,17 @@ function LoginScreen({ navigation }){
       {/* Login Button */}
       <TouchableOpacity 
         style={styles.loginBtn}
-        onPress={() => signin(ID, password)
-      }>
+        onPress={() => signin(ID, password)}
+        >
         <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
       {/* Sign Up Button -- Work to be done: Navigation to sign up screen */}
-      <TouchableOpacity style={styles.signUpBtn}>
+      <TouchableOpacity 
+        style={styles.signUpBtn}
+        onPress={() => {
+          navigation.navigate('SignUp')    
+        }}
+      >
         <Text style={styles.loginText}>SIGN UP</Text>
       </TouchableOpacity>
 
