@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   },
 
   //Login Screen
-  inputView: {
+  inputViewID: {
     backgroundColor: "lightgrey",
     borderRadius: 10,
     borderColor: "#008E6A",
@@ -134,6 +134,19 @@ const styles = StyleSheet.create({
     height: 45,
     marginBottom: 20,
     textAlign: 'left',
+
+  },
+
+  inputViewPass: {
+    backgroundColor: "lightgrey",
+    borderRadius: 10,
+    borderColor: "#008E6A",
+    borderWidth: 3,
+    width: "70%",
+    height: 45,
+    marginBottom: 20,
+    textAlign: 'left',
+
   },
   
   TextInput: {
@@ -144,10 +157,8 @@ const styles = StyleSheet.create({
     color: 'black',
     justifyContent: "center",
   },
-  
-  forgot_button: {
-    height: 30,
-    marginBottom: 30,
+
+  forgotButtonText: {
     fontWeight: 'bold',
     fontSize: 15,
   },
@@ -172,6 +183,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 60,
     backgroundColor: "#DA102E",
+ 
   },
 
   loginText: {
@@ -179,9 +191,101 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-  imageLogin: {
-    marginBottom: 0,
+  textHeader: {
+    fontSize: 50,
+    paddingBottom: 20,
+    fontWeight: 'bold',
+    fontFamily: 'Roboto', 
+    color: '#008E6A',
+
   },
+
+  imageLogin: {
+    height: '30%'
+
+  },
+
+  //Forgot Password Modal
+  centeredModal: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 30,
+    backgroundColor: "#fff",
+    borderRadius: 50,
+    padding: 50,
+    alignItems: "center",
+    shadowColor: "#008E6A",
+    borderColor: "#008E6A",
+    borderWidth: 3,
+    shadowOffset: {
+      width: 10,
+      height: 10
+    },
+    shadowOpacity: 1,
+    shadowRadius: 40,
+    elevation: 30
+  },
+  modalText: {
+    textAlign: "center",
+    fontSize: 30,
+    paddingBottom: 60,
+    fontWeight: 'bold',
+    fontFamily: 'Roboto', 
+    color: '#008E6A',
+    paddingBottom: 30
+  },
+  modalInput: {
+    backgroundColor: "lightgrey",
+    borderRadius: 10,
+    borderColor: "#008E6A",
+    borderWidth: 3,
+    width: 200,
+    height: 45,
+    marginBottom: 20,
+    textAlign: 'left',
+  },
+  forgotModal: {
+    width: 150,
+    color: "white",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 20,
+    backgroundColor: "#DA102E",
+  },
+
+  //Calendar Screen
+  calContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+    padding: 20,
+    justifyContent: 'center'
+},
+
+  breakdownBtn: {
+    width: "50%",
+    color: "white",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#008E6A",
+  },
+
+  mainview: {
+    backgroundColor: 'white',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    width: '100%'
+  },
+
 });
 
 export default styles

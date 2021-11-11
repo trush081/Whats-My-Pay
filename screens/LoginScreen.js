@@ -5,7 +5,9 @@ import {
   Text,
   Image,
   TextInput,
-  TouchableOpacity 
+  TouchableOpacity,
+  Alert,
+  Modal,
 } from 'react-native';
 import styles from './Style'
 import { NavigationContainer } from '@react-navigation/native';
@@ -17,53 +19,130 @@ import auth from '@react-native-firebase/auth';
 function LoginScreen({ navigation }){
   // User credential information
   const [ID, setID] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
+
+  const [modalVisible, setModalVisible] = useState(false);
 
   // sign in: takes employeeID and password, translated to stored email in firestore,
   // authenticats user using email and password authentication from firebase
   const signin = (ID, password) => {
     try {
-      //finds the document in firestore with name of Employee ID
-      firestore().collection("Employees").doc(ID).onSnapshot(doc => {
-        if (doc.exists){
-          // gather email field from firebase
-          //firebase user authentication with email and password
-          if(auth().signInWithEmailAndPassword(doc.data().Email, password)){
-            {
-              // Navigate to the Details route with params, User's Name
-              navigation.navigate('Home', {
-                name: doc.data().Name,
-                empID: ID,
-              });
-              setID('');
-              setPassword('');
+      if (ID == "" || password == ""){
+        Alert.alert("Invalid", "Employee ID or Password are incorrect")
+      } else {
+        //finds the document in firestore with name of Employee ID
+        firestore().collection("Employees").doc(ID).onSnapshot(doc => {
+          if (doc.exists){
+            // gather email field from firebase
+            //firebase user authentication with email and password
+            var user = auth().signInWithEmailAndPassword(doc.data().Email, password);
+            if (user){
+              {
+                // Navigate to the Details route with params, User's Name
+                navigation.navigate('Home', {
+                  name: doc.data().Name,
+                  empID: ID,
+                });
+                setID('');
+                setPassword('');
+              }
             }
+          } else {
+            // Error if the user does not exist or lack of information
+            // -- Work to be done: specify errors for user
+            Alert.alert("Oops", "Incorrect Email or Password.");
+            
           }
-        } else {
-          // Error if the user does not exist or lack of information
-          // -- Work to be done: specify errors for user
-          alert("Error");
-          
-        }
-      });
+        });
+      }
     } catch (error) {
       alert(error);
     }
   };
   //Example: <Button title="signin" onPress={() => props.signin(email, password)} />
-  
+
+
+  // Password Reset function
+  const passwordReset = () => {
+    if (email === ""){
+      Alert.alert("Invalid", "No email submitted.")
+    }else{
+      auth().sendPasswordResetEmail(email).then(
+      setModalVisible(!modalVisible),
+      Alert.alert("Email Sent", "Check your inbox for a link to reset your password."),
+      ).catch(error => 
+        Alert.alert("Check Email", "The email you submitted might not exist.") 
+      )
+    }
+  };
+
+  // Auto Loggin
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        console.log('user is logged');
+        firestore().collection("EmployeeIDs").doc(user.email).onSnapshot(doc => {
+          if (doc){
+            firestore().collection("Employees").doc(doc.data().userID).onSnapshot(page =>{
+              {
+                // Navigate to the Details route with params, User's Name
+                navigation.navigate('Home', {
+                  name: page.data().Name,
+                  empID: doc.data().userID,
+                });
+              }
+            });
+          }
+        });
+      }
+    });
+  }, []);
+
+
 
   return (
     <View style={styles.container}>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredModal}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Password Reset</Text>
+            <View style={styles.modalInput}>
+              <TextInput
+                style={styles.TextInput}
+                placeholder="Email"
+                onChangeText={setEmail}
+                value={email}
+                underlineColorAndroid="transparent"
+              />
+            </View>
+            <TouchableOpacity 
+              style={styles.forgotModal}
+              onPress={() => {
+                passwordReset();
+              }}
+            >
+              <Text style={styles.loginText}>Send</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
       {/* Header Image */}
       <Image style={styles.imageLogin} source={require("./assets/pj.png")} />
       {/* App Name Header */}
-      <Text style={styles.text}>What's My Pay?</Text>
+      <Text style={styles.textHeader}>What's My Pay?</Text>
       
       {/* Work to be done: Make input field clear apon logout */}
       {/* Employee ID input */}
-      <View style={styles.inputView}>
+      <View style={styles.inputViewID}>
         <TextInput
           style={styles.TextInput}
           placeholder="Employee ID"
@@ -73,7 +152,7 @@ function LoginScreen({ navigation }){
         />
       </View>
       {/* Password input */}
-      <View style={styles.inputView}>
+      <View style={styles.inputViewPass}>
         <TextInput
           style={styles.TextInput}
           secureTextEntry={true}
@@ -85,8 +164,8 @@ function LoginScreen({ navigation }){
       </View>
 
       {/* Forgot Password -- Work to be done: Implementation */}
-      <TouchableOpacity>
-        <Text style={styles.forgot_button}>Forgot Password?</Text>
+      <TouchableOpacity style={styles.forgotButton} onPress={() => setModalVisible(true)}>
+        <Text style={styles.forgotButtonText}>Forgot Password?</Text>
       </TouchableOpacity>
       {/* Login Button */}
       <TouchableOpacity 

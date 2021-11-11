@@ -16,8 +16,11 @@
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
     "expo-status-bar": "^1.1.0",
+    "moment": "^2.29.1",
     "react": "17.0.2",
+    "react-calendar": "^3.5.0",
     "react-native": "0.66.1",
+    "react-native-calendars": "^1.1268.0",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.8.0"
   },

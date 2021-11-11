@@ -16,7 +16,8 @@ import {
   Text,
   Image,
   TextInput,
-  TouchableOpacity 
+  TouchableOpacity,
+  Alert,
 } from 'react-native';
 import styles from './Style'
 import { NavigationContainer } from '@react-navigation/native';
@@ -32,65 +33,79 @@ function SignUpScreen({ navigation }){
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [verification, setVerification] = useState('');
+  
+  var isSignedIn = false;
 
   const createUser = () => {
     if (fieldVerification()) {
-      if (verifyPass()) {
+      var passCheck = verifyPass()
+      if (passCheck == 0) {
         firestore().collection("Employees").doc(ID).onSnapshot(doc => {
           if (doc.exists){
-            authCreate()
+            isCreated();
+            if (isCreated) {
+              addToFirestore();
+            }
           } else {
-            alert("Employee ID does not exist.")
+            Alert.alert("Invalid", "Employee ID does not exist.")
           }
         });
-      } else {
-        alert("Passwords do not match.")
+      } else if (passCheck == 1) {
+        Alert.alert("Invalid", "Passwords do not match.")
+      } else if (passCheck == 2) {
+        Alert.alert("Invalid", "Password must contain, capital letter, number, and one special character.")
       }
     } else {
-      alert("All fields must be filled!")
+      Alert.alert("Invalid", "All fields must be filled!")
     }
   };
   //Example: <Button title="Create" onPress={() => props.createUser(email, password)} />
 
-  function authCreate(){
-    try{
-      auth().createUserWithEmailAndPassword(email, password).then(() => {
-        addToFirestore();
-      })
-    } catch (error) {
-      if (error.code === 'auth/email-already-in-use') {
-        alert('User has already created account!');
-        console.log(error);
-      }
-      if (error.code === 'auth/invalid-email') {
-        alert('That email address is invalid!');
-        console.log(error);
-      }
-      if (error.code === 'auth/weak-password') {
-        alert('Password is not strong enough.');
-        console.log(error);
-      }
-    }
+  const isCreated = () => {
+    auth()
+      .createUserWithEmailAndPassword(email, password)
+      .catch(error => {
+        if(!isCreated){
+          if (error.code === 'auth/email-already-in-use') {
+            Alert.alert("Invalid",'User has already created account!');
+            console.log(error);
+          }
+          if (error.code === 'auth/invalid-email') {
+            Alert.alert("Invalid", 'That email address is formatted incorrectly.');
+            console.log(error);
+          }
+          if (error.code === 'auth/weak-password') {
+            Alert.alert("Invalid", 'Password is not strong enough.');
+            console.log(error);
+          }
+        } 
+    });
   }
 
   function addToFirestore(){
+    firestore().collection('EmployeeIDs').doc(email).set({
+      userID: ID,
+    });
     firestore().collection('Employees').doc(ID).update({
       Email: email,
       Name: name,
     }).then(() => {
-      navigation.navigate('Home', {
-        name: name,
-        empID: ID,
-      })
-      alert('Account successfully created!');
-    })
+      navigation.navigate('Login');
+    });
+    
   }
 
   function verifyPass(){
+    var strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+    
+    if (!strongRegex.test(password)) {
+      return 2;
+    }
+
     if (password === verification) {
-      return true;
+      return 0;
     } else {
-      return false;
+      return 1;
     }
   }
 
