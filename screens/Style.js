@@ -125,6 +125,18 @@ const styles = StyleSheet.create({
   },
 
   //Login Screen
+  inputView: {
+    backgroundColor: "lightgrey",
+    borderRadius: 10,
+    borderColor: "#008E6A",
+    borderWidth: 3,
+    width: "70%",
+    height: 45,
+    marginBottom: 20,
+    textAlign: 'left',
+
+  },
+
   inputViewID: {
     backgroundColor: "lightgrey",
     borderRadius: 10,

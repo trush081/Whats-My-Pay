@@ -36,8 +36,7 @@ function LoginScreen({ navigation }){
           if (doc.exists){
             // gather email field from firebase
             //firebase user authentication with email and password
-            var user = auth().signInWithEmailAndPassword(doc.data().Email, password);
-            if (user){
+            auth().signInWithEmailAndPassword(doc.data().Email, password).then(() => {
               {
                 // Navigate to the Details route with params, User's Name
                 navigation.navigate('Home', {
@@ -47,7 +46,9 @@ function LoginScreen({ navigation }){
                 setID('');
                 setPassword('');
               }
-            }
+            }).catch(error => {
+              Alert.alert("Oops", "Incorrect Email or Password.")
+            })
           } else {
             // Error if the user does not exist or lack of information
             // -- Work to be done: specify errors for user

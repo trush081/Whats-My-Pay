@@ -13,7 +13,7 @@ import auth from '@react-native-firebase/auth';
 
 function HomeScreen({ route, navigation }) {
     //params passed from Login
-    const {name, empID} = route.params;
+    const {user, name, empID} = route.params;
     const [empInfo, setempInfo] = useState();
     const [lastPeriod, setlastPeriod] = useState();
     const [totalwage, settotalwage] = useState(0.0);
@@ -139,7 +139,8 @@ function HomeScreen({ route, navigation }) {
         <TouchableOpacity 
           style={styles.logout} 
           onPress={() => {
-            auth().signOut(),
+            auth().signOut(user),
+            console.log("User is no longer logged"),
             navigation.navigate('Login')    
         }}>
           <Text style={styles.logoutText}>Logout</Text>
