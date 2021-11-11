@@ -176,11 +176,11 @@ function HomeScreen({ route, navigation }) {
           <TouchableOpacity 
             style={styles.navBarButtons}
             onPress={() => {
-              //navigation.navigate('Calendar', {
-                
-                //empID: empID,
-              //});
-          }}>
+              navigation.navigate('Calendar', {
+           
+                empID: empID,
+              });
+            }}>
             <View>
               <Image style={styles.buttonHome} source={require("./assets/calendar.png")} />
             </View>

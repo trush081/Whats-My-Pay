@@ -182,6 +182,33 @@ const styles = StyleSheet.create({
   imageLogin: {
     marginBottom: 0,
   },
+
+  calContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+    padding: 20,
+    justifyContent: 'center'
+},
+
+  breakdownBtn: {
+    width: "50%",
+    color: "white",
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#008E6A",
+  },
+
+  mainview: {
+    backgroundColor: 'white',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+    width: '100%'
+  },
+
 });
 
 export default styles
