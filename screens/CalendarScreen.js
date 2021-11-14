@@ -79,15 +79,15 @@ export default class CalendarPage extends React.Component {
       curr.setDate(curr.getDate() - (curr.getDay()+1));
       this.state.maxDate = curr;
       const { navigation } = this.props;
-      const  { empID } = this.props.route.params;
+      const  { name, empID } = this.props.route.params;
 
       return (
 
           <View style={styles.mainview}>
               {/* Header Image */}
-              <Image style={styles.image} source={require("./assets/pj_simple.png")} />
-              <Text>Select a date range and hit the breakdown button!</Text>
-              <Text>To view a single day breakdown, tap same day twice.</Text>
+              <Image style={styles.breakImage} source={require("./assets/pj_simple.png")} />
+              <Text style={styles.breakText}>Select a date range and hit the breakdown button!</Text>
+              <Text>To view a single day breakdown, tap the same day twice.</Text>
               {/*Calendar component of the page */}
               <Calendar
                   maxDate={(this.state.maxDate)}
@@ -122,7 +122,8 @@ export default class CalendarPage extends React.Component {
                 style={styles.navBarButtons}
                 onPress={() => {
                   navigation.navigate('Home', {
-                      empID: empID,
+                    name: name,  
+                    empID: empID,
                   });
               }}>
                 <View>

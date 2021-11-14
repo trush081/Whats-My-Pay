@@ -123,15 +123,6 @@ function HomeScreen({ route, navigation }) {
     return (
       <View style={styles.container}>  
         
-        {/* Button to open user profile menu */}
-        <TouchableOpacity 
-          style={styles.menu}
-          onPress={() => {
-          alert('Open user profile page!');
-        }}>
-          <Image style={styles.menuIcon} source={require("./assets/profile.png")} />
-        </TouchableOpacity>
-        
         {/* Header Image */}
         <Image style={styles.image} source={require("./assets/pj_simple.png")} />
         
@@ -167,7 +158,7 @@ function HomeScreen({ route, navigation }) {
           <TouchableOpacity 
             style={styles.navBarButtons}
             onPress={() => {
-              alert('Open Home Page!');
+              //do nothing, already on the home page
           }}>
             <View>
               <Image style={styles.buttonHome} source={require("./assets/home.png")} />
@@ -178,6 +169,7 @@ function HomeScreen({ route, navigation }) {
             style={styles.navBarButtons}
             onPress={() => {
               navigation.navigate('Calendar', {
+                name: name,
                 empID: empID,
               });
           }}>

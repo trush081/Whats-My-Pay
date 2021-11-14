@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
   calContainer: {
     flex: 1,
     backgroundColor: 'white',
-    padding: 20,
+    padding: 10,
     justifyContent: 'center'
 },
 
@@ -287,6 +287,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#008E6A",
+    marginTop: 25
   },
 
   mainview: {
@@ -296,6 +297,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: '100%',
     width: '100%'
+  },
+
+  breakText: {
+    paddingTop: 35,
+  },
+
+  breakImage: {
+    position: "absolute",
+    top: 40,
+    resizeMode: 'contain',
+    width: '60%',
+    height: '12%',
+    flex: 1,
+    paddingBottom: 20
   },
 
 });
