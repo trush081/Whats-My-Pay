@@ -1,14 +1,3 @@
-  //saving code here for sign in page
-  /*const createUser = (email, password) => {
-    try {
-      auth().createUserWithEmailAndPassword(email, password);
-    } catch (error) {
-      alert(error);
-    }
-  };
-  //Example: <Button title="Create" onPress={() => props.createUser(email, password)} />
-  */
-
 import { StatusBar } from "expo-status-bar";
 import React, {useState, useEffect} from 'react';
 import {
@@ -34,6 +23,8 @@ function SignUpScreen({ navigation }){
   const [password, setPassword] = useState('');
   const [verification, setVerification] = useState('');
   
+  const [exists, setExists] = useState(false);
+
   // Main function to create a user 
   const createUser = () => {
     // Checks inputs
@@ -42,14 +33,15 @@ function SignUpScreen({ navigation }){
       var passCheck = verifyPass()
       if (passCheck == 0) {
         //checks firestore ID usage
-        if (idCheck()) {
+        if (aCall()) {
           firestore().collection("Employees").doc(ID).onSnapshot(doc => {
             //checks to see if ID has been created by administration
             if (doc.exists){
               // creates user auth and adds info to firestore
               isCreated();
               if (isCreated) {
-                addToFirestore();
+                //adds data then navigates to login screen
+                navigate(addToFirestore());
               }
             } else {
               Alert.alert("Invalid", "Employee ID does not exist.")
@@ -70,13 +62,18 @@ function SignUpScreen({ navigation }){
   //Example: <Button title="Create" onPress={() => props.createUser(email, password)} />
 
   //finds if the ID in firestore is alread being used by other user
-  function idCheck(){
-    //checks to see if email exists for employee ID
-    firestore().collection("Employees").doc(ID).onSnapshot(page => {
-      if (page.data().Email){
-        return false;
+  async function aCall(){
+    var exist
+    return idCheck(exist);
+  }
+
+  //checks if the ID is already being used by another user. Continuation of aCall()
+  function idCheck(exist) {
+    firestore().collection("UsedIDs").doc(ID).onSnapshot(doc => {
+      if (!doc.exists){
+        exist = true;
       } else {
-        return true;
+        exist = false;
       }
     });
   }
@@ -109,18 +106,26 @@ function SignUpScreen({ navigation }){
 
   //Adds the user info into the firestore databases
   //the first one is for login using ID
-  //the second is for getting user info on home/cal pages
+  //the second is for setting the ID to being used 
+  //the third is for getting user info on home/cal pages
   function addToFirestore(){
     firestore().collection('EmployeeIDs').doc(email).set({
       userID: ID,
-    });
-    firestore().collection('Employees').doc(ID).update({
-      Email: email,
-      Name: name,
     }).then(() => {
-      navigation.navigate('Login');
+      firestore().collection('UsedIDs').doc(ID).set({
+        used: true,
+      }).then(() => {
+        firestore().collection('Employees').doc(ID).update({
+          Email: email,
+          Name: name,
+        });
+      });
     });
-    
+  }
+
+  //navigates to the login page
+  function navigate(){
+    navigation.navigate('Login');
   }
 
   //Password security to find if input is correct

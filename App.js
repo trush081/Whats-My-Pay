@@ -4,6 +4,7 @@ import LoginScreen from './screens/LoginScreen'
 import HomeScreen from './screens/HomeScreen'
 import SignUpScreen from './screens/SignUpScreen'
 import CalendarScreen from './screens/CalendarScreen'
+import BreakdownScreen from './screens/BreakdownScreen'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import firebase from '@react-native-firebase/app';
@@ -22,6 +23,7 @@ function App() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen}/>
         <Stack.Screen name="Calendar" component={CalendarScreen}/>
+        <Stack.Screen name="Breakdown" component={BreakdownScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

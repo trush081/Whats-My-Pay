@@ -48,12 +48,12 @@ function LoginScreen({ navigation }){
                 setPassword('');
               }
             }).catch(error => {
-              Alert.alert("Oops", "Incorrect Email or Password.")
+              Alert.alert("Oops", "Incorrect Employee ID or Password.")
             })
           } else {
             // Error if the user does not exist or lack of information
             // -- Work to be done: specify errors for user
-            Alert.alert("Oops", "Incorrect Email or Password.");
+            Alert.alert("Oops", "Incorrect Employee ID or Password.");
             
           }
         });
@@ -89,7 +89,7 @@ function LoginScreen({ navigation }){
         console.log('user is logged');
         // gather user infor from firestore database
         firestore().collection("EmployeeIDs").doc(user.email).onSnapshot(doc => {
-          if (doc){
+          if (doc.exists){
             firestore().collection("Employees").doc(doc.data().userID).onSnapshot(page =>{
               {
                 // Navigate to the Details route with params, User's Name and ID

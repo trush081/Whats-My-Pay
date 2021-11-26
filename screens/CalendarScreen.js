@@ -109,6 +109,12 @@ export default class CalendarPage extends React.Component {
                       //dates will be sent to the breakdown page in format YYYY-MM-DD
                     console.log(this.state.first)
                     console.log(this.state.last) 
+                    navigation.navigate("Breakdown", {
+                      name: name,
+                      empID: empID,
+                      first: this.state.first,
+                      last: this.state.last,
+                    });
                     }  
                   }}
                 >
