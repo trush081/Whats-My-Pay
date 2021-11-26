@@ -43,17 +43,20 @@ function HomeScreen({ route, navigation }) {
 
         //now get info for shifts from past pay period
         //first calculate beginnning and end dates
-        var startPeriod = new Date();
+        var tempdate = new Date();
+        var startPeriod = new Date(tempdate.getFullYear(), tempdate.getMonth(), tempdate.getDate());
         // set to Sunday of this week
         startPeriod.setDate(startPeriod.getDate() - startPeriod.getDay());
         // set to previous Sunday
         startPeriod.setDate(startPeriod.getDate() - 7);
         // create new date for end of period
-        var endPeriod = new Date(startPeriod.getFullYear(), startPeriod.getMonth(), startPeriod.getDate() + 6);
+        var endPeriod = new Date(startPeriod.getFullYear(), startPeriod.getMonth(), startPeriod.getDate() + 7);
         var temp = startPeriod.getMonth()+1 + "/" + startPeriod.getDate();
         setdate1(temp);
-        temp = endPeriod.getMonth()+1 + "/" + endPeriod.getDate();
+        temp = endPeriod.getMonth()+1 + "/" + (endPeriod.getDate()-1);
         setdate2(temp);
+        //set end date time to 23:59:59
+        endPeriod.setMilliseconds(endPeriod.getMilliseconds()-1)
         try {
           //finds the document in firestore within date range
           const last = await firestore().collection("Employees").doc(empID).collection("Shifts").where("date", '>=', startPeriod).where("date", '<=', endPeriod)
@@ -73,8 +76,6 @@ function HomeScreen({ route, navigation }) {
             .catch((error) =>{
               console.log("error gettin doc");
             })
-
-        
         } catch (error) {
           console.log("Get Last Period error");
           alert(error);
@@ -83,11 +84,10 @@ function HomeScreen({ route, navigation }) {
 
     //using lastPeriod, calculate all data for the homescreen
     //total pay, total hours, average $/hr
-    const calculate = async () => {
+    const calculate = () => {
         settotalhrs(0);
         var wage_running_total = 0.0;
         var hours_running_total = 0.0;        
-        
         try {
           lastPeriod.forEach((entry) => {
             wage_running_total += entry.drive_hrs*empInfo.drive_rate;
@@ -103,22 +103,19 @@ function HomeScreen({ route, navigation }) {
             avg = avg.toFixed(2);
             sethourlywage(avg);
           }
-        } catch(e){
-          console.log(e)
-        }
-        
+        } catch(e){}
     }
 
     //load all information when screen loads
     useEffect(() => {
-      loadData();
+      loadData()   
     }, []);
 
-    //once lastPeriod is updated with data, calculate
+    //calculate statistics using data from lastPeriod
     useEffect(() => {
       calculate()
-    }, [lastPeriod]);
-
+    });
+  
 
     return (
       <View style={styles.container}>  
@@ -126,7 +123,7 @@ function HomeScreen({ route, navigation }) {
         {/* Header Image */}
         <Image style={styles.image} source={require("./assets/pj_simple.png")} />
         
-        {/* Button to logout -- Work to be done: specify the user with logout function */}
+        {/* Button to logout */}
         <TouchableOpacity 
           style={styles.logout} 
           onPress={() => {
