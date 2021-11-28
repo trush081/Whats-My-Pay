@@ -22,6 +22,7 @@ function LoginScreen({ navigation }){
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  //forgot password Modal bool value
   const [modalVisible, setModalVisible] = useState(false);
 
   // sign in: takes employeeID and password, translated to stored email in firestore,
@@ -66,6 +67,7 @@ function LoginScreen({ navigation }){
 
   // Password Reset function
   const passwordReset = () => {
+    // uses firebase function to send automated password reset email
     if (email === ""){
       Alert.alert("Invalid", "No email submitted.")
     }else{
@@ -79,15 +81,18 @@ function LoginScreen({ navigation }){
   };
 
   // Auto Loggin
+  // Checks to see if user has previously logged in then moves them to home screen
+  // with the correct information and paramenter
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         console.log('user is logged');
+        // gather user infor from firestore database
         firestore().collection("EmployeeIDs").doc(user.email).onSnapshot(doc => {
           if (doc){
             firestore().collection("Employees").doc(doc.data().userID).onSnapshot(page =>{
               {
-                // Navigate to the Details route with params, User's Name
+                // Navigate to the Details route with params, User's Name and ID
                 navigation.navigate('Home', {
                   name: page.data().Name,
                   empID: doc.data().userID,
@@ -104,6 +109,8 @@ function LoginScreen({ navigation }){
 
   return (
     <View style={styles.container}>
+
+      {/* Forgot Password Modal */}
       <Modal
         animationType="fade"
         transparent={true}
@@ -111,10 +118,11 @@ function LoginScreen({ navigation }){
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}
-      >
+      >  
         <View style={styles.centeredModal}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>Password Reset</Text>
+            {/* Email Input */}
             <View style={styles.modalInput}>
               <TextInput
                 style={styles.TextInput}
@@ -124,6 +132,7 @@ function LoginScreen({ navigation }){
                 underlineColorAndroid="transparent"
               />
             </View>
+            {/* Forgot Password Button */}
             <TouchableOpacity 
               style={styles.forgotModal}
               onPress={() => {
@@ -131,6 +140,15 @@ function LoginScreen({ navigation }){
               }}
             >
               <Text style={styles.loginText}>Send</Text>
+            </TouchableOpacity>
+            {/* Back Arrow */}
+            <TouchableOpacity 
+              style={styles.modalArrow}
+              onPress={() => {
+                setModalVisible(!modalVisible);    
+            }}
+            >
+              <Image style={styles.menuIcon} source={require("./assets/back_arrow.png")} />
             </TouchableOpacity>
           </View>
         </View>

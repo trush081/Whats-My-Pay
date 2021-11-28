@@ -228,7 +228,8 @@ const styles = StyleSheet.create({
     margin: 30,
     backgroundColor: "#fff",
     borderRadius: 50,
-    padding: 50,
+    paddingVertical: 30,
+    paddingHorizontal: 50,
     alignItems: "center",
     shadowColor: "#008E6A",
     borderColor: "#008E6A",
@@ -241,6 +242,11 @@ const styles = StyleSheet.create({
     shadowRadius: 40,
     elevation: 30
   },
+
+  modalArrow: {
+    paddingTop: 20,
+  },
+
   modalText: {
     textAlign: "center",
     fontSize: 30,
