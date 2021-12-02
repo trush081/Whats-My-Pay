@@ -20,12 +20,16 @@ In a seperate terminal, run:
 ```bash
 npx react-native run-android
 ```
-# Future Development
+## Future Development
 
 The [/screens](https://github.com/trush081/Whats-My-Pay/tree/master/screens) folder is where each page is found along with included assets and stylesheet on Style.js.
 
+### React Navigation
+
 App.js is where navigation references are found for each page. For more information on the navigation used within the application, visit the [React Navigation](https://reactnavigation.org/docs/getting-started) website.
 
+### Firebase
+
 What's My Pay uses Firebase Authentication for login credentials through email and password. 
-  --
+ 
   
