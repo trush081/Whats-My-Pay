@@ -29,7 +29,8 @@ The [/screens](https://github.com/trush081/Whats-My-Pay/tree/master/screens) fol
 App.js is where navigation references are found for each page. For more information on the navigation used within the application, visit the [React Navigation](https://reactnavigation.org/docs/getting-started) website.
 
 ### Firebase
-
-What's My Pay uses Firebase Authentication for login credentials through email and password. 
+#### Firebase Authentication
+What's My Pay uses [Firebase Authentication](https://rnfirebase.io/auth/usage) for login credentials through email and password. Auth gives the ability to implement features such as forgot password as used in the application. For further information visit the [Firebase Web Authentication Documentation](https://firebase.google.com/docs/auth/web/start#web-version-8); however, Web version 8 works more consistently with React-Native.
  
-  
+#### Firebase Firestore
+
