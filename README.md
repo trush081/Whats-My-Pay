@@ -4,7 +4,7 @@ What's My Pay is a mobile application that is used to help delivery drivers for 
 
 ## Setting Up Development Environment
 
-Use the React-Native [Setting Up The Development Environment](https://reactnative.dev/docs/environment-setup)
+Use the React-Native [Setting Up The Development Environment](https://reactnative.dev/docs/environment-setup) to get a development environment set up.
 
 Using the Expo Client is not recommended. There is a lot more that would need to be done with navigation and Firebase in order to get this to work.
 To get the application running quickly and save some time later, it is recommended that an Android development environment is used. 
