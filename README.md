@@ -31,10 +31,10 @@ App.js is where navigation references are found for each page. For more informat
 ## Firebase
 For future development, developers will need to be granted access to the database by an owner. 
 #### Firebase Authentication
-What's My Pay uses [Firebase Authentication](https://rnfirebase.io/auth/usage) for login credentials through email and password. Auth gives the ability to implement features such as forgot password as used in the application. For further information visit the [Firebase Web Authentication Documentation](https://firebase.google.com/docs/auth/web/start#web-version-8); however, Web version 8 works more consistently with React-Native.
+What's My Pay uses [Firebase Authentication](https://rnfirebase.io/auth/usage) for login credentials through email and password. Auth gives the ability to implement features such as forgot password as used in the application. For further information visit the [Firebase Web Authentication Documentation](https://firebase.google.com/docs/auth/web/start#web-version-8); however, not always accurate, Web version 8 works more consistently with React-Native.
  
 #### Firebase Firestore
-What's My Pay use [FireStore Real-Time Database](https://rnfirebase.io/firestore/usage) to manage all driver paycheck information. For further information about reading and writing data to the databases visit [Firebase Firestore Documentation](https://firebase.google.com/docs/firestore)
+What's My Pay use [FireStore Real-Time Database](https://rnfirebase.io/firestore/usage) to manage all driver paycheck information. For further information about reading and writing data to the databases visit [Firebase Firestore Documentation](https://firebase.google.com/docs/firestore); however, not always accurate, Web version 8 works more consistently with React-Native.
 
 There are currently three Firestore databases set up:
 - EmployeeIDs (used for login to translate userID to emails for authentication with email and password)
