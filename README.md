@@ -35,7 +35,7 @@ What's My Pay uses [Firebase Authentication](https://rnfirebase.io/auth/usage) f
  
 #### Firebase Firestore
 What's My Pay use [FireStore Real-Time Database](https://rnfirebase.io/firestore/usage) to manage all driver paycheck information. For further information about reading and writing data to the databases visit [Firebase Firestore Documentation](https://firebase.google.com/docs/firestore)
-/br
+
 There are currently three Firestore databases set up:
 - EmployeeIDs (used for login to translate userID to emails for authentication with email and password)
 - Employees (used for storing basic user information and also all drivers' shifts within each Employee ID)
