@@ -1,5 +1,5 @@
 # What's My Pay
-
+##### Senior Project #####
 What's My Pay is a mobile application that is used to help delivery drivers for Papa John's see their paycheck data broken down based on various information including in-store hours verses driving hours with tips. 
 
 This React Native application uses Firestore Real Time Database for management of all information for real time updates for each driver actively using the app.
